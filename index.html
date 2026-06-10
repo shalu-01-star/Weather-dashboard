@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weather App</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#4facfe,#00f2fe);
+}
+
+.container{
+    width:400px;
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+h1{
+    margin-bottom:20px;
+    color:#333;
+}
+
+.search-box{
+    display:flex;
+    gap:10px;
+}
+
+input{
+    flex:1;
+    padding:10px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    outline:none;
+}
+
+button{
+    padding:10px 15px;
+    border:none;
+    border-radius:8px;
+    background:#007bff;
+    color:white;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0056b3;
+}
+
+.weather-card{
+    margin-top:20px;
+    display:none;
+}
+
+.weather-card img{
+    width:80px;
+}
+
+.weather-info{
+    text-align:left;
+    margin-top:15px;
+}
+
+.weather-info p{
+    margin:8px 0;
+    font-size:18px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🌤 Weather App</h1>
+
+    <div class="search-box">
+        <input
+            type="text"
+            id="locationInput"
+            placeholder="Enter city name"
+            onkeypress="if(event.key==='Enter') getWeather()"
+        >
+        <button onclick="getWeather()">Search</button>
+    </div>
+
+    <div class="weather-card" id="weatherCard">
+
+        <h2 id="city"></h2>
+
+        <img id="weatherIcon" src="" alt="">
+
+        <h3 id="condition"></h3>
+
+        <div class="weather-info">
+            <p>🌡 Temperature: <span id="temp"></span> °C</p>
+            <p>💨 Wind Speed: <span id="wind"></span> km/h</p>
+            <p>💧 Humidity: <span id="humidity"></span>%</p>
+            <p>🌫 Air Quality (PM2.5): <span id="aqi"></span></p>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+async function getWeather() {
+
+    const location =
+        document.getElementById("locationInput").value.trim();
+
+    if(location === ""){
+        alert("Please enter a city name");
+        return;
+    }
+
+    const apiKey = "YOUR_API_KEY_HERE";
+
+    const url =
+    `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${location}&aqi=yes`;
+
+    try {
+
+        const response = await fetch(url);
+
+        if(!response.ok){
+            throw new Error("Location not found");
+        }
+
+        const data = await response.json();
+
+        document.getElementById("weatherCard").style.display = "block";
+
+        document.getElementById("city").innerText =
+            `${data.location.name}, ${data.location.country}`;
+
+        document.getElementById("temp").innerText =
+            data.current.temp_c;
+
+        document.getElementById("wind").innerText =
+            data.current.wind_kph;
+
+        document.getElementById("humidity").innerText =
+            data.current.humidity;
+
+        document.getElementById("aqi").innerText =
+            Number(data.current.air_quality.pm2_5).toFixed(2);
+
+        document.getElementById("condition").innerText =
+            data.current.condition.text;
+
+        document.getElementById("weatherIcon").src =
+            "https:" + data.current.condition.icon;
+
+    } catch(error) {
+
+        alert("Location not found!");
+
+        document.getElementById("weatherCard").style.display = "none";
+
+        console.error(error);
+    }
+}
+</script>
+
+</body>
+</html>
