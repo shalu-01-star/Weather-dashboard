@@ -168,8 +168,30 @@ async function getWeather() {
         document.getElementById("aqi").innerText =
             Number(data.current.air_quality.pm2_5).toFixed(2);
 
+        const condition = data.cuurent.condition.text;
+
+        let emoji = "🌥️";
+        if(condition.includes("Sunny")){
+            emoji = "☀️"
+        }
+        else if (condition.includes("Cloud")){
+            emoji = "☁️"
+        }
+         else if (condition.includes("Rain")){
+            emoji = "🌧️"
+        }
+         else if (condition.includes("Thunder")){
+            emoji = "⛈️"
+        }
+         else if (condition.includes("Mist")){
+            emoji = "🌫️"
+        }
+         else if (condition.includes("Snow")){
+            emoji = "❄️"
+        }
+
         document.getElementById("condition").innerText =
-            data.current.condition.text;
+            emoji + " " + condition;
 
         document.getElementById("weatherIcon").src =
             "https:" + data.current.condition.icon;
