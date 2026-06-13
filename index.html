@@ -78,6 +78,14 @@ button:hover{
 .weather-info p{
     margin:8px 0;
     font-size:18px;
+
+#dateTime{ 
+    margin:10px 0;
+    font-size:16px;
+    font-weight:bold;
+    color:#555;
+}
+
 }
 </style>
 
@@ -87,6 +95,8 @@ button:hover{
 <div class="container">
 
     <h1>🌤 Weather App</h1>
+
+    <p id="dateTime"></p>
 
     <div class="search-box">
         <input
@@ -120,6 +130,22 @@ button:hover{
 </div>
 
 <script>
+
+function updateDateTime(){
+    const now = new Date();
+
+    const date = now.toLocalDateString("en-IN",
+{
+    day:"numeric",
+    month:"long",
+    year:"numeric"
+    });
+
+    const time =
+now.toLocaleTimeString("en-IN");
+
+document.getElementById("dateTime").innerHTML = '📅 ${date}<br>⏲️ ${time}';
+}
 async function getWeather() {
 
     const location =
@@ -205,6 +231,10 @@ async function getWeather() {
         console.error(error);
     }
 }
+
+updateDateTime();
+setInterval(updateDateTime, 1000);
+
 </script>
 
 </body>
