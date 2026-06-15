@@ -149,6 +149,8 @@ button:hover{
             <p>💧 Humidity: <span id="humidity"></span>%</p>
             <p>🌡 Pressure: <span id="pressure"></span> mb</p>
             <p>🌫 Air Quality (PM2.5): <span id="aqi"></span></p>
+            <p>🌄Sunrise: <span id="sunrise"></span></p>
+            <p>🌇Sunset: <span id="sunset"></span></p>
         </div>
 
     </div>
@@ -198,7 +200,7 @@ async function getWeather() {
     const apiKey = "YOUR_API_KEY_HERE";
 
     const url =
-    `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${location}&aqi=yes`;
+    `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=1&aqi=yes`;
 
     try {
 
@@ -232,6 +234,12 @@ async function getWeather() {
 
         document.getElementById("aqi").innerText =
             Number(data.current.air_quality.pm2_5).toFixed(2);
+
+        document.getElementById("sunrise").innerText =
+            data.forecast.forecastday[0].astro.sunrise;
+
+        document.getElementById("sunset").innerText =
+            data.forecast.forecastday[0].astro.sunset;
 
         const condition = data.cuurent.condition.text;
 
