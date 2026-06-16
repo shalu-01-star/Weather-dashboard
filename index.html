@@ -132,6 +132,9 @@ button:hover{
             onkeypress="if(event.key==='Enter') getWeather()"
         >
         <button onclick="getWeather()">Search</button>
+
+        <h3>Recent Searches</h3>
+        <ul id="seachHistory"></ul>
     </div>
 
     <div class="weather-card" id="weatherCard">
@@ -187,10 +190,33 @@ now.toLocaleTimeString("en-IN");
 
 document.getElementById("dateTime").innerHTML = '📅 ${date}<br>⏲️ ${time}';
 }
+
+let recentSearches = [];
+
+function updateSearchHistory() {
+
+    let historyList = document.getElementById("searchHistory");
+    historyList.innerHTML = "";
+    recentSearches.forEach(city => {
+        let li = document.createElement("li");
+        li.innerText = city;
+        historyList.appendChild(li);
+    });
+}
 async function getWeather() {
 
     const location =
         document.getElementById("locationInput").value.trim();
+
+    if(location && !recentSearches.includes(location)) {
+        recentSearches.unshift(location);
+
+        if(recentSearches.length > 5) {
+            recentSearches.pop();
+        }
+
+        updateSearchHistory();
+    }
 
     if(location === ""){
         alert("Please enter a city name");
