@@ -93,6 +93,15 @@ button:hover{
     color: white;
 }
 
+#searchHistory li{
+    cursor:pointer;
+    margin:5px 0;
+}
+
+#searchHistory li:hover{
+    text-decoration:underline;
+}
+
 .dark-mode .container{
     background: #1e1e1e;
     color:white;
@@ -200,6 +209,11 @@ function updateSearchHistory() {
     recentSearches.forEach(city => {
         let li = document.createElement("li");
         li.innerText = city;
+        li.style.cursor = "pointer";
+        li.onclick = function() {
+            document.getElementById("cityInput").value = city;
+            getWeather();
+        };
         historyList.appendChild(li);
     });
 }
