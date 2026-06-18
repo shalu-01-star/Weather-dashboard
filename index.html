@@ -78,6 +78,7 @@ button:hover{
 .weather-info p{
     margin:8px 0;
     font-size:18px;
+}
 
 #dateTime{ 
     margin:10px 0;
@@ -86,11 +87,14 @@ button:hover{
     color:#555;
 }
 
-}
-
 .dark-mode{
     background: #121212;
     color: white;
+}
+
+#searchHistory{
+    list-style:none;
+    padding: 0;
 }
 
 #searchHistory li{
@@ -127,9 +131,9 @@ button:hover{
     <h1>🌤 Weather App</h1>
 
     <button id=""darkModeBtn"
-    onclick=""toggleDarkMode()">
+    onclick="toggleDarkMode()">
      🌙Dark Mode
-    </button>"
+    </button>
 
     <p id="dateTime"></p>
 
@@ -142,9 +146,10 @@ button:hover{
         >
         <button onclick="getWeather()">Search</button>
 
-        <h3>Recent Searches</h3>
-        <ul id="seachHistory"></ul>
     </div>
+
+    <h3>Recent Searches</h3>
+    <ul id="searchHistory"></ul>
 
     <div class="weather-card" id="weatherCard">
 
@@ -179,7 +184,7 @@ function toggleDarkMode() {
         btn.innerText = "☀️ Light Mode";
     }
     else{
-        btn.innerText = "🌙Dark Mode";
+        btn.innerText = "🌙 Dark Mode";
     }
 
 }
@@ -187,7 +192,7 @@ function toggleDarkMode() {
 function updateDateTime(){
     const now = new Date();
 
-    const date = now.toLocalDateString("en-IN",
+    const date = now.toLocaleDateString("en-IN",
 {
     day:"numeric",
     month:"long",
@@ -197,7 +202,7 @@ function updateDateTime(){
     const time =
 now.toLocaleTimeString("en-IN");
 
-document.getElementById("dateTime").innerHTML = '📅 ${date}<br>⏲️ ${time}';
+document.getElementById("dateTime").innerHTML = `📅 ${date}<br>⏲️ ${time}`;
 }
 
 let recentSearches = [];
@@ -211,7 +216,7 @@ function updateSearchHistory() {
         li.innerText = city;
         li.style.cursor = "pointer";
         li.onclick = function() {
-            document.getElementById("cityInput").value = city;
+            document.getElementById("locationInput").value = city;
             getWeather();
         };
         historyList.appendChild(li);
@@ -237,7 +242,7 @@ async function getWeather() {
         return;
     }
 
-    const apiKey = "YOUR_API_KEY_HERE";
+    const apiKey = "YOUR_APIKEY_HERE";
 
     const url =
     `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=1&aqi=yes`;
@@ -281,7 +286,7 @@ async function getWeather() {
         document.getElementById("sunset").innerText =
             data.forecast.forecastday[0].astro.sunset;
 
-        const condition = data.cuurent.condition.text;
+        const condition = data.current.condition.text;
 
         let emoji = "🌥️";
         if(condition.includes("Sunny")){
