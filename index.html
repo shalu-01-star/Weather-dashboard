@@ -149,6 +149,10 @@ button:hover{
     </div>
 
     <h3>Recent Searches</h3>
+
+    <button onclick="clearHistory()">
+        🗑️ Clear History
+    </button>
     <ul id="searchHistory"></ul>
 
     <div class="weather-card" id="weatherCard">
@@ -222,6 +226,12 @@ function updateSearchHistory() {
         historyList.appendChild(li);
     });
 }
+
+function clearHistory() {
+    recentSearches = [];
+    updateSearchHistory();
+}
+
 async function getWeather() {
 
     const location =
@@ -242,7 +252,7 @@ async function getWeather() {
         return;
     }
 
-    const apiKey = "YOUR_APIKEY_HERE";
+    const apiKey = "YOUR_API_KEY_HERE";
 
     const url =
     `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=1&aqi=yes`;
