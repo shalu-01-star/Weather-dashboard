@@ -121,6 +121,25 @@ button:hover{
     color: #ddd;
 }
 
+#forecastContainer{
+    display:flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.forecast-day{
+    flex:1;
+    padding: 10px;
+    border-radius: 10px;
+    background: #f0f0f0;
+    text-align: center;
+}
+
+.dark-mode .forecast-day{
+    background: #333;
+}
+
 </style>
 
 </head>
@@ -174,6 +193,8 @@ button:hover{
         </div>
 
     </div>
+    <h3>3-Day Forecast</h3>
+    <div id="forecastContainer"></div>
 
 </div>
 
@@ -254,7 +275,7 @@ async function getWeather() {
     const apiKey = "YOUR_API_KEY_HERE";
 
     const url =
-    `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=1&aqi=yes`;
+    `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=3&aqi=yes`;
 
     try {
 
@@ -294,6 +315,23 @@ async function getWeather() {
 
         document.getElementById("sunset").innerText =
             data.forecast.forecastday[0].astro.sunset;
+
+        let forecastHTML = "";
+
+        data.forecast.forecastday.forEach(day => {
+
+            forecastHTML += `
+                <div class ="forecast-day">
+                    <h4>${day.date}</h4>
+                    <img src ="https:${day.day.condition.icon}">
+                    <p>${day.day.avgtemp_c} °C</p>
+                    <P>${day.day.condition.text}</p>
+                </div> 
+            `;   
+        });
+
+        document.getElementById("forecastContainer").innerHTML = 
+            forecastHTML;
 
         const condition = data.current.condition.text;
 
