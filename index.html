@@ -333,34 +333,48 @@ async function getWeather() {
         document.getElementById("forecastContainer").innerHTML = 
             forecastHTML;
 
-        const condition = data.current.condition.text;
+        const condition = data.current.condition.text.toLowerCase();
 
-        if(condition.includes("Sunny")) {
+        if(condition.includes("sunny")) {
             document.body.style.background = 
             "linear-gradient(135deg, #f6d365, #fda085)";
         }
-        else if(condition.includes("Cloud")) {
+        else if(condition.includes("partly cloudy")) {
+            document.body.style.background =
+            "linear-gradient(135deg, #89f7fe, #66a6ff)";
+        }
+        else if(
+            condition.includes("cloud") || 
+            condition.includes("overcast")
+        ) {
             document.body.style.background = 
             "linear-gradient(135deg, #bdc3c7, #2c3e50)";
         }
-        else if(condition.includes("Rain")) {
+        else if(condition.includes("drizzle")) {
+            document.body.style.background =
+            "linear-gradient(135deg, #74ebd5, #9face6)";
+        }
+        else if(condition.includes("rain")) {
             document.body.style.background = 
             "linear-gradient(135deg, #4facfe, #00f2fe)";
         }
-        else if(condition.includes("Thunder")) {
+        else if(condition.includes("thunder")) {
             document.body.style.background = 
             "linear-gradient(135deg, #232526, #414345)";
         }
-        else if(condition.includes("Mist")) {
-            document.body.style.background = 
-            "linear-gradient(135deg, #d3cce3, #e9e4f0)";
-        }
-        else if(condition.includes("Snow")) {
+        else  if(condition.includes("snow")) {
             document.body.style.background = 
             "linear-gradient(135deg, #e6dada, #274046)";
         }
+        else if(condition.includes("mist") || condition.includes("fog")) {
+            document.body.style.background = 
+            "linear-gradient(135deg, #d3cce3, #e9e4f0)";
+        }
+        else {
+            document.body.style.background = 
+            "linear-gradient(135deg, #4facfe, #00f2fe)";
+        }
         
-
         let emoji = "🌥️";
         if(condition.includes("Sunny")){
             emoji = "☀️"
