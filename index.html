@@ -140,6 +140,34 @@ button:hover{
     background: #333;
 }
 
+@media (max-width: 600px) {
+    .container{
+        width: 95%;
+        padding: 20px;
+    }
+    .search-box {
+        flex-direction: column;
+    }
+    input,
+    button {
+        width: 100%;
+    }
+    h1{
+        font-size: 32px;
+    }
+    .weather-info p{
+        font-size: 16px;
+    }
+    #forecast {
+        flex-direction: column;
+        align-items: center;
+    }
+    .forecast-card{
+        width: 90%;
+        margin-bottom: 10px;
+    }
+}
+
 </style>
 
 </head>
