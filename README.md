@@ -2,7 +2,7 @@
 
 A modern weather application built using HTML, CSS, and JavaScript that provides real-time weather information, air quality data, sunrise/sunset timings, recent search history, dark mode, and a 3-day weather forecast.
 
-##Screenshot
+## Screenshot
 
 
 ## Features
