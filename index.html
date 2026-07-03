@@ -219,6 +219,8 @@ button:hover{
             <p>💨 Wind Speed: <span id="wind"></span> km/h</p>
             <p>💧 Humidity: <span id="humidity"></span>%</p>
             <p>🌡 Pressure: <span id="pressure"></span> mb</p>
+            <p>☀️ UV Index: <span id="uv"></span></p>
+            <p>👀 Visibility: <span id="Visibility"></span> km</p>
             <p>🌫 Air Quality (PM2.5): <span id="aqi"></span></p>
             <p>🌄Sunrise: <span id="sunrise"></span></p>
             <p>🌇Sunset: <span id="sunset"></span></p>
@@ -338,6 +340,12 @@ async function getWeather() {
 
         document.getElementById("pressure").innerText =
             data.current.pressure_mb;  
+
+        document.getElementById("uv").innerText =
+            data.current.uv;
+
+        document.getElementById("visibility").innerText =
+            data.current.vis_km;
 
         document.getElementById("aqi").innerText =
             Number(data.current.air_quality.pm2_5).toFixed(2);
