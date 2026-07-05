@@ -224,6 +224,7 @@ button:hover{
             <p>🌫 Air Quality (PM2.5): <span id="aqi"></span></p>
             <p>🌄Sunrise: <span id="sunrise"></span></p>
             <p>🌇Sunset: <span id="sunset"></span></p>
+            <p>🌙Moon Phase: <span id="moonPhase"></span></p>
         </div>
 
     </div>
@@ -355,6 +356,9 @@ async function getWeather() {
 
         document.getElementById("sunset").innerText =
             data.forecast.forecastday[0].astro.sunset;
+
+        document.getElementById("moonPhase").innerText =
+            data.forecast.forecastday[0].astro.moon_phase;
 
         let forecastHTML = "";
 
