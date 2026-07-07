@@ -357,8 +357,38 @@ async function getWeather() {
         document.getElementById("sunset").innerText =
             data.forecast.forecastday[0].astro.sunset;
 
-        document.getElementById("moonPhase").innerText =
+        const moonPhase =
             data.forecast.forecastday[0].astro.moon_phase;
+
+        let moonEmoji = "🌙";
+
+        if(moonPhase === "New Moon"){
+            moonEmoji = "🌑";
+        }
+        else if(moonPhase === "Waxing Crescent"){
+            moonEmoji = "🌒";
+        }
+        else if(moonPhase === "First Quarter"){
+            moonEmoji = "🌓";
+        }
+        else if(moonPhase === "Waxing Gibbous"){
+            moonEmoji = "🌔";
+        }
+        else if(moonPhase === "Full Moon"){
+            moonEmoji = "🌕";
+        }
+        else if(moonPhase === "Waning Gibbous"){
+            moonEmoji = "🌖";
+        }
+        else if(moonPhase === "Last Quarter"){
+            moonEmoji = "🌗";
+        }
+        else if(moonPhase === "Waning Crescent"){
+            moonEmoji = "🌘";
+        }
+
+        document.getElementById("moonPhase").innerText =
+            moonEmoji + " " + moonPhase;
 
         let forecastHTML = "";
 
