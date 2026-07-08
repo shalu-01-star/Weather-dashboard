@@ -238,6 +238,8 @@ button:hover{
 
         <h3 id="condition"></h3>
 
+        <p>🕒 Last Updated: <span id = "lastUpadated"></span></p>
+
         <div class="weather-info">
             <p>🌡 Temperature: <span id="temp"></span> °C</p>
             <p>🥵 Feels Like: <span id="feelsLike"></span> °C</p>
@@ -356,6 +358,9 @@ async function getWeather() {
 
         document.getElementById("city").innerText =
             `${data.location.name}, ${data.location.country}`;
+
+        document.getElementById("lastUpdated").innerText =
+            data.current.last_updated;
 
         document.getElementById("temp").innerText =
             data.current.temp_c;
