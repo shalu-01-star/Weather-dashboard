@@ -238,7 +238,7 @@ button:hover{
 
         <h3 id="condition"></h3>
 
-        <p>🕒 Last Updated: <span id = "lastUpadated"></span></p>
+        <p>🕒 Last Updated: <span id = "lastUpdated"></span></p>
 
         <div class="weather-info">
             <p>🌡 Temperature: <span id="temp"></span> °C</p>
@@ -247,7 +247,7 @@ button:hover{
             <p>💧 Humidity: <span id="humidity"></span>%</p>
             <p>🌡 Pressure: <span id="pressure"></span> mb</p>
             <p>☀️ UV Index: <span id="uv"></span></p>
-            <p>👀 Visibility: <span id="Visibility"></span> km</p>
+            <p>👀 Visibility: <span id="visibility"></span> km</p>
             <p>🌫 Air Quality (PM2.5): <span id="aqi"></span></p>
             <p>🌄Sunrise: <span id="sunrise"></span></p>
             <p>🌇Sunset: <span id="sunset"></span></p>
@@ -334,10 +334,10 @@ async function getWeather() {
         return;
     }
 
-    const apiKey = "YOUR_API_KEY_HERE";
+    const apiKey = "c774f494787b40b4a4172506262006";
 
     const url =
-    `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=3&aqi=yes`;
+    `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${location}&days=3&aqi=yes&alerts=no`;
 
     document.getElementById("loader").style.display = "block";
     document.getElementById("weatherCard").style.display = "none";
@@ -434,7 +434,7 @@ async function getWeather() {
                     <h4>${day.date}</h4>
                     <img src ="https:${day.day.condition.icon}">
                     <p>${day.day.avgtemp_c} °C</p>
-                    <P>${day.day.condition.text}</p>
+                    <p>${day.day.condition.text}</p>
                 </div> 
             `;   
         });
@@ -485,22 +485,22 @@ async function getWeather() {
         }
         
         let emoji = "🌥️";
-        if(condition.includes("Sunny")){
+        if(condition.includes("sunny")){
             emoji = "☀️"
         }
-        else if (condition.includes("Cloud")){
+        else if (condition.includes("cloud")){
             emoji = "☁️"
         }
-         else if (condition.includes("Rain")){
+         else if (condition.includes("rain")){
             emoji = "🌧️"
         }
-         else if (condition.includes("Thunder")){
+         else if (condition.includes("thunder")){
             emoji = "⛈️"
         }
-         else if (condition.includes("Mist")){
+         else if (condition.includes("mist")){
             emoji = "🌫️"
         }
-         else if (condition.includes("Snow")){
+         else if (condition.includes("snow")){
             emoji = "❄️"
         }
 
